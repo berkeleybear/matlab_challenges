@@ -1,0 +1,26 @@
+function tir_circlenew = translatem(tir_circle,nx,ny) 
+
+% nx, ny: number of pixels to be translated in x and y directions
+%%
+[YY,XX]=size(tir_circle);
+ZXX = false(YY,abs(nx));  
+ZYY = false(abs(ny),XX);
+%%
+if nx>0
+
+    tir_circlenew = [ZXX tir_circle];  % shift to right, so place ZXX at the left side
+    tir_circlenewx = tir_circlenew(:,1:XX); % take the left XX columns
+else
+    tir_circlenew = [tir_circle ZXX];  % shift to right, so place ZXX at the left side
+    tir_circlenewx = tir_circlenew(:,-nx+1:end); % take the right XX columns
+end
+
+%%
+
+if ny>0
+    tir_circlenewy = vertcat(ZYY,tir_circlenewx);  %concatenates 2 matrices
+    tir_circlenew = tir_circlenewy(1:YY,:);  % take the lower YY rows
+else
+    tir_circlenewy = vertcat(tir_circlenewx,ZYY);  % vertically concatenates the 2 matrices
+    tir_circlenew = tir_circlenewy(-ny+1:end,:);  % take the upper YY rows
+end

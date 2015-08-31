@@ -1,0 +1,5 @@
+function g = gaussian(gaussSD,Rsq_0,T)
+
+theta = acos(T./(Rsq_0.^0.5));
+epower = ((-1).*(theta.^2))./(2.*((pi.*0.5.*gaussSD).^2));
+g = ((1/(pi*gaussSD))*((2*pi)^(-0.5)).*exp(epower));
